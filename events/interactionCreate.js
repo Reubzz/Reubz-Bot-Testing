@@ -1,0 +1,185 @@
+const { CommandInteractionOptionResolver } = require("discord.js");
+const client = require("../index");
+
+client.on("interactionCreate", async (interaction) => {
+
+    // Slash Command Handling
+    
+    if (interaction.isCommand()) {
+        await interaction.deferReply({ ephemeral: false }).catch(() => {});
+
+        const cmd = client.slashCommands.get(interaction.commandName);
+        if (!cmd)
+            return interaction.followUp({ content: "An error has occured " });
+
+        const args = [];
+
+        for (let option of interaction.options.data) {
+            if (option.type === "SUB_COMMAND") {
+                if (option.name) args.push(option.name);
+                option.options?.forEach((x) => {
+                    if (x.value) args.push(x.value);
+                });
+            } else if (option.value) args.push(option.value);
+        }
+        interaction.member = interaction.guild.members.cache.get(interaction.user.id);
+
+        cmd.run(client, interaction, args);
+    }
+
+
+    // --- Buttons Command Handler -- 
+
+    if(interaction.isButton()) {
+        const member = interaction.guild.members.cache.get(interaction.user.id)
+        // Verify Command 
+        if(interaction.customId === 'Verify'){
+            const verifiedRole = '876105949138534430'
+            member.roles.add(verifiedRole)
+            interaction.reply({ content: 'You are now Verified', ephemeral: true });
+        }
+
+        // Color Roles Command 
+        const redRole = '841210035219988530'
+        const purpleRole = '841210035450937355'
+        const greenRole = '841210035655933954'
+        const pinkRole = '841210036055048254'
+        const orangeRole = '841210036428079126'
+        const yellowRole = '841210036880408586'
+        const blueRole = '841210037220540426'
+
+        if(interaction.customId === 'red'){
+            if(member.roles.cache.has(redRole)){ member.roles.remove(redRole);
+                return interaction.reply({ content: `Your <@&${redRole}> Role has been Removed!`, ephemeral: true })
+            } else if(member.roles.cache.has(purpleRole)){ await member.roles.remove(purpleRole); member.roles.add(redRole);
+                return interaction.reply({ content: `You were given the <@&${redRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(greenRole)){ await member.roles.remove(greenRole); member.roles.add(redRole);
+                return interaction.reply({ content: `You were given the <@&${redRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(pinkRole)){ await member.roles.remove(pinkRole); member.roles.add(redRole);
+                return interaction.reply({ content: `You were given the <@&${redRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(orangeRole)){ await member.roles.remove(orangeRole); member.roles.add(redRole);
+                return interaction.reply({ content: `You were given the <@&${redRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(yellowRole)){ await member.roles.remove(yellowRole); member.roles.add(redRole);
+                return interaction.reply({ content: `You were given the <@&${redRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(blueRole)){ await member.roles.remove(blueRole); member.roles.add(redRole);
+                return interaction.reply({ content: `You were given the <@&${redRole}> Role`, ephemeral: true })
+            } else{ await member.roles.add(redRole); 
+                return interaction.reply({ content: `You were given the <@&${redRole}> Role`, ephemeral: true })
+            }
+        }
+        if(interaction.customId === 'purple'){
+            if(member.roles.cache.has(purpleRole)){ member.roles.remove(purpleRole); 
+                return interaction.reply({ content: `Your <@&${purpleRole}> Role has been Removed!`, ephemeral: true })
+            } else if(member.roles.cache.has(redRole)){ await member.roles.remove(redRole); member.roles.add(purpleRole);
+                return interaction.reply({ content: `You were given the <@&${purpleRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(greenRole)){ await member.roles.remove(greenRole); member.roles.add(purpleRole);
+                return interaction.reply({ content: `You were given the <@&${purpleRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(pinkRole)){ await member.roles.remove(pinkRole); member.roles.add(purpleRole);
+                return interaction.reply({ content: `You were given the <@&${purpleRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(orangeRole)){ await member.roles.remove(orangeRole); member.roles.add(purpleRole);
+                return interaction.reply({ content: `You were given the <@&${purpleRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(yellowRole)){ await member.roles.remove(yellowRole); member.roles.add(purpleRole);
+                return interaction.reply({ content: `You were given the <@&${purpleRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(blueRole)){ await member.roles.remove(blueRole); member.roles.add(purpleRole);
+                return interaction.reply({ content: `You were given the <@&${purpleRole}> Role`, ephemeral: true })
+            } else{ await member.roles.add(purpleRole); 
+                return interaction.reply({ content: `You were given the <@&${purpleRole}> Role`, ephemeral: true })
+            }
+        }
+        if(interaction.customId === 'green'){
+            if(member.roles.cache.has(greenRole)){ await member.roles.remove(greenRole); 
+                return interaction.reply({ content: `Your <@&${greenRole}> Role has been Removed!`, ephemeral: true })
+            } else if(member.roles.cache.has(redRole)){ await member.roles.remove(redRole); member.roles.add(greenRole);
+                return interaction.reply({ content: `You were given the <@&${greenRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(purpleRole)){ await member.roles.remove(purpleRole); member.roles.add(greenRole);
+                return interaction.reply({ content: `You were given the <@&${greenRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(pinkRole)){ await member.roles.remove(pinkRole); member.roles.add(greenRole);
+                return interaction.reply({ content: `You were given the <@&${greenRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(orangeRole)){ await member.roles.remove(orangeRole); member.roles.add(greenRole);
+                return interaction.reply({ content: `You were given the <@&${greenRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(yellowRole)){ await member.roles.remove(yellowRole); member.roles.add(greenRole);
+                return interaction.reply({ content: `You were given the <@&${greenRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(blueRole)){ await member.roles.remove(blueRole); member.roles.add(greenRole);
+                return interaction.reply({ content: `You were given the <@&${greenRole}> Role`, ephemeral: true })
+            } else{ await member.roles.add(greenRole); 
+                return interaction.reply({ content: `You were given the <@&${greenRole}> Role`, ephemeral: true })
+            }
+        }
+        if(interaction.customId === 'pink'){
+            if(member.roles.cache.has(pinkRole)){ await member.roles.remove(pinkRole);
+                return interaction.reply({ content: `Your <@&${pinkRole}> Role has been Removed!`, ephemeral: true })
+            } else if(member.roles.cache.has(redRole)){ await member.roles.remove(redRole); member.roles.add(pinkRole)
+                return interaction.reply({ content: `You were given the <@&${pinkRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(purpleRole)){ await member.roles.remove(purpleRole); member.roles.add(pinkRole)
+                return interaction.reply({ content: `You were given the <@&${pinkRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(greenRole)){ await member.roles.remove(greenRole); member.roles.add(pinkRole)
+                return interaction.reply({ content: `You were given the <@&${pinkRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(orangeRole)){ await member.roles.remove(orangeRole); member.roles.add(pinkRole)
+                return interaction.reply({ content: `You were given the <@&${pinkRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(yellowRole)){ await member.roles.remove(yellowRole); member.roles.add(pinkRole)
+                return interaction.reply({ content: `You were given the <@&${pinkRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(blueRole)){ await member.roles.remove(blueRole); member.roles.add(pinkRole)
+                return interaction.reply({ content: `You were given the <@&${pinkRole}> Role`, ephemeral: true })
+            } else{ await member.roles.add(pinkRole);
+                return interaction.reply({ content: `You were given the <@&${pinkRole}> Role`, ephemeral: true })
+            }
+        }
+        if(interaction.customId === 'orange'){
+            if(member.roles.cache.has(orangeRole)){ await member.roles.remove(orangeRole);
+                return interaction.reply({ content: `Your <@&${orangeRole}> Role has been Removed!`, ephemeral: true })
+            } else if(member.roles.cache.has(redRole)){ await member.roles.remove(redRole); member.roles.add(orangeRole)
+                return interaction.reply({ content: `You were given the <@&${orangeRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(purpleRole)){ await member.roles.remove(purpleRole); member.roles.add(orangeRole)
+                return interaction.reply({ content: `You were given the <@&${orangeRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(greenRole)){ await member.roles.remove(greenRole); member.roles.add(orangeRole)
+                return interaction.reply({ content: `You were given the <@&${orangeRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(pinkRole)){ await member.roles.remove(pinkRole); member.roles.add(orangeRole)
+                return interaction.reply({ content: `You were given the <@&${orangeRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(yellowRole)){ await member.roles.remove(yellowRole); member.roles.add(orangeRole)
+                return interaction.reply({ content: `You were given the <@&${orangeRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(blueRole)){ await member.roles.remove(blueRole); member.roles.add(orangeRole)
+                return interaction.reply({ content: `You were given the <@&${orangeRole}> Role`, ephemeral: true })
+            } else { await member.roles.add(orangeRole);
+                return interaction.reply({ content: `You were given the <@&${orangeRole}> Role`, ephemeral: true })
+            }
+        }
+        if(interaction.customId === 'yellow'){
+            if(member.roles.cache.has(yellowRole)){ await member.roles.remove(yellowRole);
+                return interaction.reply({ content: `Your <@&${yellowRole}> Role has been Removed!`, ephemeral: true })
+            } else if(member.roles.cache.has(redRole)){ await member.roles.remove(redRole); member.roles.add(yellowRole)
+                return interaction.reply({ content: `You were given the <@&${yellowRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(purpleRole)){ await member.roles.remove(purpleRole); member.roles.add(yellowRole)
+                return interaction.reply({ content: `You were given the <@&${yellowRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(greenRole)){ await member.roles.remove(greenRole); member.roles.add(yellowRole)
+                return interaction.reply({ content: `You were given the <@&${yellowRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(pinkRole)){ await member.roles.remove(pinkRole); member.roles.add(yellowRole)
+                return interaction.reply({ content: `You were given the <@&${yellowRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(orangeRole)){ await member.roles.remove(orangeRole); member.roles.add(yellowRole)
+                return interaction.reply({ content: `You were given the <@&${yellowRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(blueRole)){ await member.roles.remove(blueRole); member.roles.add(yellowRole)
+                return interaction.reply({ content: `You were given the <@&${yellowRole}> Role`, ephemeral: true })
+            } else { await member.roles.add(yellowRole);
+                return interaction.reply({ content: `You were given the <@&${yellowRole}> Role`, ephemeral: true })
+            } 
+        }
+        if(interaction.customId === 'blue'){
+            if(member.roles.cache.has(blueRole)){ await member.roles.remove(blueRole);
+                return interaction.reply({ content: `Your <@&${blueRole}> Role has been Removed!`, ephemeral: true })
+            } else if(member.roles.cache.has(redRole)){ await member.roles.remove(redRole); member.roles.add(blueRole)
+                return interaction.reply({ content: `You were given the <@&${blueRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(purpleRole)){ await member.roles.remove(purpleRole); member.roles.add(blueRole)
+                return interaction.reply({ content: `You were given the <@&${blueRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(greenRole)){ await member.roles.remove(greenRole); member.roles.add(blueRole)
+                return interaction.reply({ content: `You were given the <@&${blueRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(pinkRole)){ await member.roles.remove(pinkRole); member.roles.add(blueRole)
+                return interaction.reply({ content: `You were given the <@&${blueRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(orangeRole)){ await member.roles.remove(orangeRole); member.roles.add(blueRole)
+                return interaction.reply({ content: `You were given the <@&${blueRole}> Role`, ephemeral: true })
+            } else if(member.roles.cache.has(yellowRole)){ await member.roles.remove(yellowRole); member.roles.add(blueRole)
+                return interaction.reply({ content: `You were given the <@&${blueRole}> Role`, ephemeral: true })
+            } else{ await member.roles.add(blueRole)
+                return interaction.reply({ content: `You were given the <@&${blueRole}> Role`, ephemeral: true })
+            } 
+        }
+    }
+});

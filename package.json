@@ -1,0 +1,22 @@
+{
+    "name": "djs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "nodemon index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "colors": "^1.4.0",
+        "discord-together": "^1.1.62",
+        "discord.js": "^13.0.0",
+        "dotenv": "^10.0.0",
+        "glob": "^7.1.7",
+        "moment-timezone": "^0.5.33",
+        "mongoose": "^5.13.7"
+    }
+}
