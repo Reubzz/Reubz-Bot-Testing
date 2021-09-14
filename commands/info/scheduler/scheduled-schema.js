@@ -15,6 +15,6 @@ const scheduledSchema = new mongoose.Schema({
   channelId: reqString
 })
 
-const name = 'schedule-message-beta'
+const name = 'bot-testing'
 
 module.exports = mongoose.model[name] || mongoose.model(name, scheduledSchema, name)

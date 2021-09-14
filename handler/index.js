@@ -1,6 +1,9 @@
 const { glob } = require("glob");
 const { promisify } = require("util");
 const { Client } = require("discord.js");
+const { mongooseConnectionString } = require("../config.json");
+const mongoose = require("mongoose");
+var colors = require('colors/safe')
 
 const globPromise = promisify(glob);
 
@@ -41,9 +44,25 @@ module.exports = async (client) => {
         // Register for a single guild
         await client.guilds.cache
             .get("798518088697774101")
-            .commands.set(arrayOfSlashCommands);
+            //.commands.set(arrayOfSlashCommands) // to register slash command for a guild
+            .commands.set([]) // to delete all slash commands 
+
 
         // Register for all the guilds the bot is in
         // await client.application.commands.set(arrayOfSlashCommands);
     });
+
+    
+
+    // mongoose 
+
+    
+    if (!mongooseConnectionString) return;
+
+    mongoose.connect(mongooseConnectionString, {
+        useFindAndModify: true,
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+    }).then(() => console.log(colors.brightCyan.bgBlack.bold('Connected to Database')));
+
 };

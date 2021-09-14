@@ -2,7 +2,7 @@ const { Message, MessageActionRow, MessageButton } = require("discord.js");
 
 module.exports = {
     name: "color",
-    aliases: ['cr'],
+    aliases: [],
     ownerOnly: false,
     /**
      *

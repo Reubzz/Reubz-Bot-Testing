@@ -1,5 +1,7 @@
-const { CommandInteractionOptionResolver } = require("discord.js");
+const { CommandInteractionOptionResolver, Message, MessageEmbed } = require("discord.js");
 const client = require("../index");
+const helpPages = require('../commands/info/Select Menu/helpMenuEmbeds')
+
 
 client.on("interactionCreate", async (interaction) => {
 
@@ -27,11 +29,35 @@ client.on("interactionCreate", async (interaction) => {
         cmd.run(client, interaction, args);
     }
 
+    // ---- Select Menu Handler ----
+
+    if(interaction.isSelectMenu()) {
+        if(interaction.customId === 'helpmenu'){
+            const value = interaction.values[0]
+            if(value === 'helpPage1'){
+                interaction.update({ emebds: [helpPages.helpPage1] })
+            }
+            if(value === 'helpPage2'){
+                interaction.update({ embeds: [helpPages.helpPage2] })
+            }
+            if(value === 'helpPage3'){
+                interaction.update({ embeds: [helpPages.helpPage3] })
+            }
+            if(value === 'helpPage4'){
+                interaction.update({ embeds: [helpPages.helpPage4] })
+            }
+            if(value === 'helpPageMain'){
+                interaction.update({ embeds: [helpPages.helpPageMain] })
+            }
+        }
+    }
+
 
     // --- Buttons Command Handler -- 
 
     if(interaction.isButton()) {
-        const member = interaction.guild.members.cache.get(interaction.user.id)
+        const member = interaction.guild.members.cache.get(interaction.user.id);
+
         // Verify Command 
         if(interaction.customId === 'Verify'){
             const verifiedRole = '876105949138534430'

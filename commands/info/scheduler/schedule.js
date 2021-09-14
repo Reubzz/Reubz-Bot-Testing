@@ -4,7 +4,8 @@ const { MessageCollector } = require('discord.js')
 const scheduledSchema = require('./scheduled-schema')
 
 module.exports = {
-  requiredPermissions: ['MANAGE_MESSAGES'],
+  name: 'schedule',
+  aliases: 'sc',
   expectedArgs: '**`<Channel Tag>`** **`<DD/MM/YYYY>`** **`<HH:MM>`** **`<"AM" or "PM">`** **`<Timezone>`**',
   minArgs: 5,
   maxArgs: 5,
@@ -44,10 +45,9 @@ module.exports = {
   },
 
 
-  callback: async ( message, args ) => {
-    const { mentions, guild, channel } = message
+  run: async ( message, args ) => {
 
-    const targetChannel = mentions.channels.first()
+    const targetChannel = message.mentions.channels.first()
     if (!targetChannel) {
       message.reply('Please tag a Channel to send your scheduled message.')
       return
@@ -81,7 +81,7 @@ module.exports = {
       return newMessage.author.id === message.author.id
     }
 
-    const collector = new MessageCollector(channel, filter, {
+    const collector = new MessageCollector(message, filter, {
       max: 1,
       time: 1000 * 300 //5 minutes
     })
@@ -102,7 +102,7 @@ module.exports = {
       await new scheduledSchema({
         date: targetDate.valueOf(),
         content:  collectedMessage.content,
-        guildId: guild.id,
+        guildId: message.guildId,
         channelId: targetChannel.id
       }).save()
     })
