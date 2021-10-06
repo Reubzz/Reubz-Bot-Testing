@@ -48,7 +48,7 @@ module.exports = {
             description: 'Choose the Voice Channel you would like to start Activity in.',
             type: 'CHANNEL',
             channelTypes: ['GUILD_VOICE'],
-            requried: true,
+            required: false,
         }
     ],
 
