@@ -30,7 +30,7 @@ module.exports = async (client) => {
 
     // Slash Commands
     const slashCommands = await globPromise(
-        `${process.cwd()}/SlashCommands/*/*.js`
+        `${process.cwd()}/SlashCommands/**/*.js`
     );
 
     const arrayOfSlashCommands = [];
@@ -41,11 +41,47 @@ module.exports = async (client) => {
         arrayOfSlashCommands.push(file);
     });
     client.on("ready", async () => {
+        const guild  = client.guilds.cache.get("798518088697774101");
         // Register for a single guild
-        await client.guilds.cache
-            .get("798518088697774101")
-            //.commands.set(arrayOfSlashCommands) // to register slash command for a guild
-            .commands.set([]) // to delete all slash commands 
+        // to register slash command for a guild
+        await guild 
+            .commands.set(arrayOfSlashCommands)
+            .then((cmd) => {
+                const getRoles = (commandName) => {
+                    const permissions = arrayOfSlashCommands.find(
+                        (x) => x.name === commandName
+                    ).userPermissions;
+                    if(!permissions) return null;
+                    return guild.roles.cache.filter((x) => x.permissions.has(permissions) && !x.managed);
+                };
+                const fullPermissions = cmd.reduce((accumulator, x) => {
+                    const roles = getRoles(x.name);
+                    if(!roles) return accumulator;
+
+                    const permissions = roles.reduce((a, v) => {
+                        return [
+                            ...a,
+                            {
+                                id: v.id,
+                                type: "ROLE",
+                                permission: true,
+                            },
+                        ];
+                    }, []);
+
+                    return [
+                        ...accumulator,
+                        {
+                            id: x.id,
+                            permissions,
+                        },
+                    ];
+                }, []);
+
+                guild.commands.permissions.set({ fullPermissions });
+            }); 
+
+            //.commands.set([]) // to delete all slash commands 
 
 
         // Register for all the guilds the bot is in
