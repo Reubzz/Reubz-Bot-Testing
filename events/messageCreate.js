@@ -18,7 +18,7 @@ client.on("messageCreate", async (message) => {
 
     if (!command) return;
 
-    if (command.ownerOnly && message.author.id !== config.owner) return message.channel.send(" <a:No_1:841257803434688524> **Access Denied!** \n ONLY REUBZ CAN USE THIS COMMAND!");
+    if (command.ownerOnly && !config.owner.includes(message.author.id)) return message.channel.send(" <a:No_1:841257803434688524> **Access Denied!** \n ONLY REUBZ CAN USE THIS COMMAND!");
     
     await command.run(client, message, args);
 });
