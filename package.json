@@ -1,21 +1,26 @@
 {
     "name": "djs",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "",
     "main": "index.js",
     "scripts": {
         "start": "node index.js",
-        "test": "nodemon index.js"
+        "nodemon": "nodemon index.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@discordjs/opus": "^0.6.0",
+        "axios": "^0.23.0",
         "colors": "^1.4.0",
+        "discord-player": "^5.1.0",
         "discord-together": "^1.1.62",
         "discord.js": "^13.2.0",
         "dotenv": "^10.0.0",
+        "ffmpeg-static": "^4.4.0",
         "glob": "^7.1.7",
+        "lyrics-finder": "^21.7.0",
         "moment-timezone": "^0.5.33",
         "mongoose": "^5.13.8",
         "node-fetch": "^2.6.1",

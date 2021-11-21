@@ -60,19 +60,24 @@ client.on("interactionCreate", async (interaction) => {
 
         // Verify Command 
         if(interaction.customId === 'Verify'){
-            const verifiedRole = '876105949138534430'
+            //const verifiedRole = '876105949138534430'
+            const verifiedRole = interaction.guild.roles.cache.find((x) => x.name === 'Verified Test Role').id
+            if(member.roles.cache.has(verifiedRole)){ 
+                member.roles.remove(verifiedRole); 
+                return interaction.reply({ content: 'Your Verifed Role has been removed.', ephemeral: true });
+            }
             member.roles.add(verifiedRole)
             interaction.reply({ content: 'You are now Verified', ephemeral: true });
         }
 
         // Color Roles Command 
-        const redRole = '841210035219988530'
-        const purpleRole = '841210035450937355'
-        const greenRole = '841210035655933954'
-        const pinkRole = '841210036055048254'
-        const orangeRole = '841210036428079126'
-        const yellowRole = '841210036880408586'
-        const blueRole = '841210037220540426'
+        const redRole = interaction.guild.roles.cache.find((x) => x.name === 'Red').id // '841210035219988530'
+        const purpleRole = interaction.guild.roles.cache.find((x) => x.name === 'Purple').id // '841210035450937355'
+        const greenRole = interaction.guild.roles.cache.find((x) => x.name === 'Green').id // '841210035655933954'
+        const pinkRole = interaction.guild.roles.cache.find((x) => x.name === 'Pink').id // '841210036055048254'
+        const orangeRole = interaction.guild.roles.cache.find((x) => x.name === 'Orange').id // '841210036428079126'
+        const yellowRole = interaction.guild.roles.cache.find((x) => x.name === 'Yellow').id // '841210036880408586'
+        const blueRole = interaction.guild.roles.cache.find((x) => x.name === 'Blue').id // '841210037220540426'
 
         if(interaction.customId === 'red'){
             if(member.roles.cache.has(redRole)){ member.roles.remove(redRole);

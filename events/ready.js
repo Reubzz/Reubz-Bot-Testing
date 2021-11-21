@@ -28,6 +28,9 @@ client.on("ready", async () => {
   console.log(colors.red.bold("——————————[Statistics]——————————"))
   console.log(colors.gray(`Running on Node ${process.version} on ${process.platform} ${process.arch}`))
   console.log(colors.gray(`Memory: ${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB RSS\n${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`))
+
+  client.user.setActivity('with Dyno', {type: 'COMPETING' }),
+  client.user.setStatus('dnd')
 })
 
 
