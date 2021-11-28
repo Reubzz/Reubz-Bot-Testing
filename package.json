@@ -25,6 +25,7 @@
         "mongoose": "^5.13.8",
         "node-fetch": "^2.6.1",
         "nodemon": "^2.0.13",
+        "simply-djs": "^2.2.0",
         "weky": "^3.1.5"
     }
 }
