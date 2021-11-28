@@ -61,7 +61,7 @@ client.on("interactionCreate", async (interaction) => {
         // Verify Command 
         if(interaction.customId === 'Verify'){
             //const verifiedRole = '876105949138534430'
-            const verifiedRole = interaction.guild.roles.cache.find((x) => x.name === 'Verified Test Role').id
+            const verifiedRole = interaction.guild.roles.cache.find((x) => x.name === 'Test Role').id
             if(member.roles.cache.has(verifiedRole)){ 
                 member.roles.remove(verifiedRole); 
                 return interaction.reply({ content: 'Your Verifed Role has been removed.', ephemeral: true });
