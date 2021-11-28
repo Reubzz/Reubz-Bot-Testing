@@ -7,8 +7,8 @@ module.exports = {
   name: 'schedule',
   aliases: 'sc',
   expectedArgs: '**`<Channel Tag>`** **`<DD/MM/YYYY>`** **`<HH:MM>`** **`<"AM" or "PM">`** **`<Timezone>`**',
-  minArgs: 5,
-  maxArgs: 5,
+  minArgs: 4,
+  maxArgs: 4,
 
   init: (client) => {
       const checkForPosts = async () => {
@@ -56,23 +56,23 @@ module.exports = {
     //Remove the Channel Tag from the args array.
     args.shift()
 
-    const [date, time, clockType, timeZone] = args
+    const [date, time, clockType] = args
 
     if (clockType !== 'AM' && clockType !== 'PM') {
       message.reply(`**You Must Provide either __"AM" or "PM"__.** \n You provided: \n "${clockType}"`)
       return
     }
 
-    const validTimeZones = momentTimezone.tz.names()
-    if (!validTimeZones.includes(timeZone)) {
-      messsage.reply('Unkown Timezone!!! Please use one of the following - <https://gist.github.com/AlexzanderFlores/d511a7c7e97b4c3ae60cb6e562f78300> `eg. Asia/Calcutta`')
-      return
-    }
+    // const validTimeZones = momentTimezone.tz.names()
+    // if (!validTimeZones.includes(timeZone)) {
+    //   messsage.reply('Unkown Timezone!!! Please use one of the following - <https://gist.github.com/AlexzanderFlores/d511a7c7e97b4c3ae60cb6e562f78300> `eg. Asia/Calcutta`')
+    //   return
+    // }
     
     const targetDate = momentTimezone.tz(
       `${date} ${time} ${clockType}`,
       'DD-MM-YYYY HH:mm A',
-      timeZone
+      "Asia/Calcutta"
     )
 
     message.reply(`<a:PepeDance:856035043762634752><a:dogedance:856034847998214164> **__SUCCESS!!__** <a:dogedance:856034847998214164><a:PepeDance:856035043762634752> \n\n> **__Current Settings__**\n> Target Channel - ${targetChannel}\n> Date - ${date}\n> Time - ${time}${clockType} \n\n<a:typing:841258320282386463> Please enter the message You would like to send. <a:typing:841258320282386463>\n<a:Load:855794725599313940> **You have 5 Minutes to enter your Message!** <a:Load:855794725599313940>`)
