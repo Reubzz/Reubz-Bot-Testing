@@ -76,7 +76,7 @@ module.exports = {
         }, 
         {
             name: "channel",
-            description: "The channel you want to lock/unlock",
+            description: "The channel you want to add slowmode",
             required: false,
             type: "CHANNEL",
             channelTypes: ['GUILD_TEXT']
