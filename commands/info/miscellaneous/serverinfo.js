@@ -1,11 +1,11 @@
-const { CommandInteraction, Client, MessageEmbed} = require('discord.js');
+const { Client, MessageEmbed} = require('discord.js');
 
 module.exports = {
     name: 'serverinfo',
     description: 'serverinfo command',
     /** 
      * @param {Client} client 
-     * @param {CommandInteraction} message 
+     * @param {Message} message 
      * @param {String[]} args 
      */
      run: async(client, message, args) => {
