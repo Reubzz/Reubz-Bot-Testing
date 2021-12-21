@@ -27,8 +27,6 @@ module.exports = {
 
         if(!emoji) return interaction.followUp({ content: "Invalid Emoji Name. Make sure the Emoji is from this server. [You can enter either Emoji itself or only the Name]", ephemeral: true });
 
-        let animatedEmoji = (emoji.animated)? `<${emoji.identifier}>` : `<:${emoji.identifier}>`
-
         let embed = new MessageEmbed()
             .setTitle('Emoji Info')
             .setDescription(`**__Emoji:__** ${emoji}`+
