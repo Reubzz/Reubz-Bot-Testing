@@ -1,6 +1,10 @@
 const { CommandInteractionOptionResolver, Message, MessageEmbed } = require("discord.js");
 const client = require("../index");
-const helpPages = require('../commands/info/Select Menu/helpMenuEmbeds')
+const config = require("../config.json");
+const helpPages = require('../commands/info/Select Menu/helpMenuEmbeds');
+let { Database } = require('quickmongo');
+// let db = new Database(config.mongooseSuggestConnectionString);
+const simplydjs = require("simply-djs");
 
 
 client.on("interactionCreate", async (interaction) => {
@@ -52,6 +56,9 @@ client.on("interactionCreate", async (interaction) => {
         }
     }
 
+    // Suggestion System
+
+    //simplydjs.suggestBtn(interaction, db)
 
     // --- Buttons Command Handler -- 
 
