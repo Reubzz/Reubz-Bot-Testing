@@ -14,7 +14,8 @@ module.exports = {
     
     run: async (client, message, args)=>{
         simplydjs.calculator(message, {
-            embedColor: "#2F3136"
+            embedColor: "#2F3136",
+            credit: false
         })
     }
 }
