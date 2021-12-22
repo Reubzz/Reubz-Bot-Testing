@@ -58,7 +58,7 @@ client.on("interactionCreate", async (interaction) => {
 
     // Suggestion System
 
-    //simplydjs.suggestBtn(interaction, db)
+    simplydjs.suggestBtn(interaction, db)
 
     // --- Buttons Command Handler -- 
 
