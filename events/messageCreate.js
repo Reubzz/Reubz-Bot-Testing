@@ -10,10 +10,7 @@ client.on("messageCreate", async (message) => {
     )
         return;
 
-    const [cmd, ...args] = message.content
-        .slice(client.config.prefix.length)
-        .trim()
-        .split(" ");
+    const [cmd, ...args] = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
 
     const command = client.commands.get(cmd.toLowerCase()) || client.commands.find(c => c.aliases?.includes(cmd.toLowerCase()));
 
