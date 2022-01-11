@@ -1,7 +1,7 @@
 const { glob } = require("glob");
 const { promisify } = require("util");
 const { Client } = require("discord.js");
-const { mongooseConnectionString } = require("../config.json");
+const { mongooseURI } = require("../config.json");
 const mongoose = require("mongoose");
 var colors = require('colors/safe')
 
@@ -38,6 +38,8 @@ module.exports = async (client) => {
         const file = require(value);
         if (!file?.name) return;
         client.slashCommands.set(file.name, file);
+        if (["MESSAGE", "USER"].includes(file.type)) delete file.description; // For Context Menu (Message and User) Type. Also cannot have Description in Context Menus
+        if(file.userPermissions) file.defaultPermission = false;
         arrayOfSlashCommands.push(file);
     });
     client.on("ready", async () => {
@@ -92,13 +94,10 @@ module.exports = async (client) => {
 
     // mongoose 
 
-    
-    if (!mongooseConnectionString) return;
-
-    mongoose.connect(mongooseConnectionString, {
-        useFindAndModify: true,
-        useUnifiedTopology: true,
+    mongoose.connect(mongooseURI, {
         useNewUrlParser: true,
-    }).then(() => console.log(colors.brightCyan.bgBlack.bold('Connected to Database')));
+        useUnifiedTopology: true
+    }).then(() => console.log(colors.brightCyan.bgBlack.bold('Connected to Custom BG DB')))
+    .catch((err) => console.log(err))
 
 };

@@ -3,7 +3,7 @@ const client = require("../index");
 const config = require("../config.json");
 const helpPages = require('../commands/info/Select Menu/helpMenuEmbeds');
 let { Database } = require('quickmongo');
-// let db = new Database(config.mongooseSuggestConnectionString);
+let db = new Database(config.mongooseURI);
 const simplydjs = require("simply-djs");
 
 
@@ -31,6 +31,14 @@ client.on("interactionCreate", async (interaction) => {
         interaction.member = interaction.guild.members.cache.get(interaction.user.id);
 
         cmd.run(client, interaction, args);
+    }
+
+    // Context Menu Handling 
+
+    if(interaction.isContextMenu()) {
+        await interaction.deferReply({ ephemeral: false }).catch(() => {});
+        const command = client.slashCommands.get(interaction.commandName);
+        if (command) command.run(client, interaction);
     }
 
     // ---- Select Menu Handler ----
