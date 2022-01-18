@@ -5,7 +5,7 @@ const { Client, CommandInteraction, MessageActionRow, MessageButton, MessageEmbe
 module.exports = {
     name: 'leaderboard',
     description: 'Shows the Leaderboard',
-    userPermission: ["SEND_MESSAGES"],
+    userPermissions: ["SEND_MESSAGES"],
 
     /**
      * @param {Client} client

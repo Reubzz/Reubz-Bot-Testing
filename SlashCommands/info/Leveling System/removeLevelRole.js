@@ -3,7 +3,7 @@ const { Client, CommandInteraction, MessageActionRow, MessageButton, MessageEmbe
 module.exports = {
     name: 'remove-level-role',
     description: 'Removes a Level Role',
-    userPermission: ["ADMINISTRATOR"],
+    userPermissions: ["ADMINISTRATOR"],
     options: [
         {
             name: 'level',

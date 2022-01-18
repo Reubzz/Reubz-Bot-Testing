@@ -4,6 +4,7 @@ const ranksDB = require('simply-xp/models/level')
 module.exports = {
     name: 'reset-level',
     description: 'Reset the users XP and Level to 0',
+    userPermissions: ["ADMINISTRATOR"],
     type: 'USER',
 
     /**
