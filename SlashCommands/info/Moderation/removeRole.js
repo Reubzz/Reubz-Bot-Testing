@@ -3,7 +3,7 @@ const { Client, CommandInteraction, MessageActionRow, MessageButton } = require(
 module.exports = {
     name: 'remove-role',
     description: 'removes a role to the target user',
-    userPermission: ["MANAGE_ROLES"],
+    userPermissions: ["MANAGE_ROLES"],
     options: [
         {
             name: 'user',
