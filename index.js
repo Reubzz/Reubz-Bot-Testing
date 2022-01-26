@@ -1,6 +1,14 @@
 const { Client, Collection } = require("discord.js");
 require('dotenv').config();
 
+const express = require('express');
+const app = express();
+const port = 80;
+
+app.get('/', (req, res) => res.send('Reubz Message Scheduler Part - 2 Bot Active!'));
+
+app.listen(port, () => console.log(`Example app listening at http://localhost/main:${port}`));
+
 const client = new Client({
     intents: 32767,
 });
