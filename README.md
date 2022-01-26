@@ -1,4 +1,4 @@
-# Reubz Discord Bot (d.js v13)
+# Reubz Testing Bot
 
 Type `!help` or `!h` to get a Select Menu with all the Commands. 
 
