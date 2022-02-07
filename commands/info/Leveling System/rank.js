@@ -1,5 +1,5 @@
 const { Client, Message, MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu } = require('discord.js');
-const imageDB = require('../../../models/CustomRankCard')
+const rankk = require('../../../models/functions/rank');
 
 module.exports = {
     name: 'rank',
@@ -18,15 +18,8 @@ module.exports = {
     run: async (client, message, args) => {
         
         const member = message.mentions.members.first()?.id || message.author.id
-        const user = await imageDB.findOne({ user: member, gid: message.guild.id })
-        
-        const bgimage = user? user.img : 'https://i.imgur.com/EnPpetR.jpg'
-        const lvlbar = user? user.lvlbar : '#ffffff'
-        
-        xp.rank(message, member, message.guild.id, {
-            background: bgimage,
-            lvlbar: lvlbar,
-        }).then((img) => {
+    
+        await rankk.rankcard(message, member, message.guild.id).then((img) => {
             message.reply({ files: [img] });
         }).catch((err) => {
             if(err = TypeError){
