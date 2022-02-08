@@ -4,7 +4,7 @@ const reqRolesDB = require("../../../models/databases/reqRoles");
 const commandChoices = [
     {
         name: 'Set Custom Rank Card',
-        value: 'setCustomRankCard',
+        value: 'customRankCard',
     }
 ]
 
@@ -79,8 +79,6 @@ module.exports = {
     run: async (client, interaction, args) => {
         const role = interaction.options.getRole('role');
         const commandName = interaction.options.getString('command-name');
-        const add = interaction.options.getSubcommand('add');
-        const remove = interaction.options.getSubcommand('remove');
 
         let [sub] = args
 
@@ -117,7 +115,7 @@ module.exports = {
             
             let embed = new MessageEmbed()
                 .setTitle(`Updated Required Role/s for the Command \`${commandName}\``)
-                .setDescription(`All Required Roles Set for this Command is:\n➤ <@&${searchDB2.reqRoles.toString().replaceAll(',', `>\n➤ <@&`)}>`)
+                .setDescription(`All Required Roles Set for this Command is:\n> ➤ <@&${searchDB2.reqRoles.toString().replaceAll(',', `>\n> ➤ <@&`)}>`)
                 .setColor('#2f3136')
             interaction.followUp({ embeds: [embed] })
         }
@@ -175,13 +173,13 @@ function rolesSet(array){
     let setOfRoles;
     
     if(array == 0) {
-        setOfRoles = `➤ \`Null\``
+        setOfRoles = `> ➤ \`Null\``
     }
     else if(array == 1) {
-        setOfRoles = `➤ <@&${array.toString()}>`
+        setOfRoles = `> ➤ <@&${array.toString()}>`
     }
     else{
-        setOfRoles = `➤ <@&${array.toString().replaceAll(',', `>\n➤ <@&`)}>`
+        setOfRoles = `> ➤ <@&${array.toString().replaceAll(',', `>\n> ➤ <@&`)}>`
     }
 
     return setOfRoles

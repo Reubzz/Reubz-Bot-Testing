@@ -1,6 +1,6 @@
-const { Client, CommandInteraction, MessageActionRow, MessageButton } = require('discord.js');
+const { Client, CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const rankCardDB = require("../../../models/databases/CustomRankCard");
-const reqRolesDB = require("../../../models/databases/reqRoles");
+const reqRole = require('../../../models/functions/reqRolesCheck')
 
 module.exports = {
     name: 'custom-rank-card',
@@ -50,55 +50,9 @@ module.exports = {
         const levelbar = interaction.options.getString('level-bar');
         const defaultValues = interaction.options.getString('set-default-values')
 
-        // const u = new reqRolesDB({
-        //     gid: interaction.guild.id,
-        //     commandName: "setCustomRankCard"
-        // })
-        // await u
-        //     .save()
-        //     .catch((e) => { interaction.followUp({ content: e }) });
-
-        let checkRoles = 0;
-        let allowedRoles = [];
-        console.log("initial value "+checkRoles) // debug
-
-        const checkReqRolesDB = await reqRolesDB.findOne({ gid: interaction.guild.id, commandName: "setCustomRankCard" })
-        if(!checkReqRolesDB){
-            checkRoles++
-            checkRoles++
-            console.log("if no db found checkRoles value "+checkRoles) // debug
-        }
-
-        else if(checkReqRolesDB){
-            allowedRoles = checkReqRolesDB.reqRoles
-            console.log(checkReqRolesDB.reqRoles) // debug
-            if(allowedRoles.length == 0){
-                await reqRolesDB.deleteMany({ gid: interaction.guild.id, commandName: "setCustomRankCard" })
-                checkRoles++
-                checkRoles++
-                console.log("if no reqRoles found in db value "+checkRoles) // debug
-            }
-            console.log("IMP = if reqRoles are found in db value "+checkRoles) // debug
-        }
-        
-        console.log("Final checkRoles value "+checkRoles) // debug
-
-        if(checkRoles == 0){
-            await allowedRoles.forEach((role) => { 
-                if(commandUser.roles.cache.has(role)) {
-                    checkRoles++
-                };
-            })
-        }
-
-        if(checkRoles == 0) {
-            return interaction.followUp({ 
-                content: 'You cannot use this command. You need to have atleast 1 of the following Roles to use this command!\n' +
-                        `<@&${allowedRoles.toString().replaceAll(',', `>\n<@&`)}>`,
-                allowedMentions: { parse: ["users"] }
-            })
-        }
-
+        const checker = await reqRole.reqRolesChecker(interaction, "customRankCard", { embed: true });
+        if(checker.checkRoles == 0) return
+        // console.log(checker) //debug
         
         const checkMember = await rankCardDB.findOne({ user: interaction.user.id, gid: interaction.guild.id })
 
