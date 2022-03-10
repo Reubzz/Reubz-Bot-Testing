@@ -25,6 +25,22 @@ const xp = require('simply-xp')
 xp.connect(client.config.mongooseURI)
 global.xp = xp
 
+// Log File 
+let fs = require('fs');
+let util = require('util');
+
+// logFile(logMessage, fileName)
+// logMessage = Message to be logged
+// fileName = the name of the file in logs folder
+logFile = function(d, fileName) { //
+    let log_file = fs.createWriteStream(__dirname + "/logs/" + fileName + ".log", {flags : 'w'});
+    let log_stdout = process.stdout;
+
+    log_file.write(util.format(d) + '\n');
+    log_stdout.write(util.format(d) + '\n');
+};
+global.logFile = logFile
+
 // Initializing the project
 require("./handler")(client);
 
