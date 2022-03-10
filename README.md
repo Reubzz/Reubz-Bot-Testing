@@ -23,7 +23,7 @@
   - Supports a Welcome Feature which posts a specified Welcome Message every time a New Person Joins the Server. 
     -  Support for Custom Backgrounds (Coming Soon!)
     
-    <img src="https://i.imgur.com/w4MuhnE.png" height="200" >
+    <img src="https://i.imgur.com/w4MuhnE.png" height="200">
 
 - **Music Feature:** (Upcoming Still Under Work!!) [Beta] 
   - Supports Soundcloud, Spotify and Youtube Urls. 
