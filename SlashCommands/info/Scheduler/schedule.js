@@ -112,7 +112,8 @@ module.exports = {
             `${date} ${time} ${clockType}`,
             'DD-MM-YYYY HH:mm A',
             `${timezone}`
-        ).valueOf()/1000
+        ).valueOf()
+        const epoachTime = targetDate/1000
         
         interaction.followUp({ embeds: [embeds.enterMessage] })
          
@@ -121,14 +122,14 @@ module.exports = {
         }
     
         interaction.channel.awaitMessages({ 
-            filter, max: 1, time: 1000 * 3, errors: ['time'] 
+            filter, max: 1, time: 1000 * 30, errors: ['time'] 
         })
         .then(async (collected) => {
             console.log("entered Collector") // Debug
             const collectedMessage = collected.first()
             collectedMessage.delete()
             // Debug
-            console.log(targetDate.valueOf())
+            console.log(targetDate)
             console.log(collectedMessage.content)
             console.log(interaction.guild.id)
             console.log(channel.id)
@@ -139,7 +140,7 @@ module.exports = {
                 .setDescription(
                     '** **\n'+
                     '**__Scheduled Message Details:__**\n'+
-                    `> Scheduled Date - **<t:${targetDate}:F>**\n`+
+                    `> Scheduled Date - **<t:${epoachTime}:F>**\n`+
                     `> Guild Id - **\`${interaction.guild.name}\`**\n`+
                     `> Channel - ${channel}\n`+
                     `> Special Id - **\`${specialid}\`**\n`
@@ -180,7 +181,7 @@ module.exports = {
                             .setDescription(
                                 '** **\n'+
                                 '**__Scheduled Message Details:__**\n'+
-                                `> Scheduled Date - **<t:${targetDate}:F>**\n`+
+                                `> Scheduled Date - **<t:${epoachTime}:F>**\n`+
                                 `> Guild Id - **\`${interaction.guild.name}\`**\n`+
                                 `> Channel - ${channel}\n`+
                                 `> Special Id - **\`${specialid}\`**\n`
@@ -192,13 +193,13 @@ module.exports = {
                             .setColor('GREEN')
                         interaction.followUp({ embeds: [opConfirmed] })
 
-                        // await new scheduledSchema({
-                        //     date: targetDate.valueOf(),
-                        //     content: collectedMessage.content,
-                        //     guildId: interaction.guild.id,
-                        //     channelId: channel.id,
-                        //     specialId: specialid
-                        // }).save()
+                        await new scheduledSchema({
+                            date: targetDate,
+                            content: collectedMessage.content,
+                            guildId: interaction.guild.id,
+                            channelId: channel.id,
+                            specialId: specialid
+                        }).save()
                     }
                 })
 	            .catch(err => console.log(`No interactions were collected.`));
