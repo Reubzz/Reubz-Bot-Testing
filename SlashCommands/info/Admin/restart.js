@@ -16,7 +16,7 @@ module.exports = {
     run: async (client, interaction, args) => {
         if(owner.includes(interaction.user.id)){
 
-            await interaction.followUp({ content: "Restarting Bot ..."})
+            await interaction.followUp({ content: "Restarting ... ", ephemeral: false })
     
             // Simple Restart command that throws a error to the console. 
             // And the BAT script which is a Loop that restarts bot whenever it crashes.
