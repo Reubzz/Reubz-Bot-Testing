@@ -24,7 +24,7 @@ module.exports = {
                             value: progress,
                         },
                     ],
-                    color: client.config.clientColor,
+                    color: '#2f3136',
                     footer: {
                         text: `Queued by ${queue.current.requestedBy.tag}`,
                     },
