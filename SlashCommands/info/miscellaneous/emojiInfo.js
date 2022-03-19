@@ -23,7 +23,7 @@ module.exports = {
         let searchEmoji = interaction.options.getString('emoji-name');
         searchEmoji = searchEmoji.startsWith("<a:")? searchEmoji.replace(/\d+|<a|:|>/g, "") : searchEmoji.replace(/\d+|<|:|>/g, "")
 
-        const emoji = interaction.guild.emojis.cache.find(e => e.name == searchEmoji);
+        const emoji = interaction.guild.emojis.cache.find(e => e.name.toLowerCase() == searchEmoji.toLowerCase());
 
         if(!emoji) return interaction.followUp({ content: "Invalid Emoji Name. Make sure the Emoji is from this server. [You can enter either Emoji itself or only the Name]", ephemeral: true });
 
