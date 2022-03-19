@@ -3,7 +3,7 @@ const { Client, CommandInteraction, MessageActionRow, MessageButton, MessageEmbe
 module.exports = {
     name: 'emoji-info',
     description: 'Gives all the available info about the Emoji.',
-    userPermissions: ["ADMINISTRATOR"],
+    // userPermissions: ["ADMINISTRATOR"],
     options: [
         {
             name: "emoji-name",
