@@ -4,7 +4,7 @@ const scheduledSchema = require('../../../models/databases/messageScheduler')
 module.exports = {
     name: 'scheduled-messages-list',
     description: 'List of all the Scheduled Messages',
-    userPermissions: ["ADMINISTRATOR"],
+    // userPermissions: ["ADMINISTRATOR"],
 
     /**
      * @param {Client} client

@@ -4,7 +4,7 @@ const scheduledSchema = require('../../../models/databases/messageScheduler')
 module.exports = {
     name: 'scheduled-message-delete',
     description: 'Deletes a already Scheduled Message.',
-    userPermissions: ["ADMINISTRATOR"],
+    // userPermissions: ["ADMINISTRATOR"],
     options: [
         {
             name: 'special-id',
