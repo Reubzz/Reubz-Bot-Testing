@@ -5,7 +5,7 @@ const momentTimezone = require('moment-timezone')
 module.exports = {
     name: 'schedule-message',
     description: 'Schedules a Message to a future date.',
-    userPermissions: ["ADMINISTRATOR"],
+    // userPermissions: ["ADMINISTRATOR"],
     options: [
         {
             name: 'channel',
@@ -103,14 +103,15 @@ module.exports = {
             return interaction.followUp({ embeds: [embeds.dateErrEmbed] })
         }
         // Checking if Time is in correct Format
-        if(validatetime(`${time} ${clockType}`) != true) {
+        const validTime = validatetime(time, clockType)
+        if(validTime == false) {
             return interaction.followUp({ embeds: [embeds.timeErrEmbed] })
         }
 
         // Date and Time 
         const targetDate = momentTimezone.tz(
-            `${date} ${time} ${clockType}`,
-            'DD-MM-YYYY HH:mm A',
+            `${date} ${validTime[0]}`,
+            `${validTime[1]}`,
             `${timezone}`
         ).valueOf()
         const epoachTime = targetDate/1000
@@ -255,12 +256,17 @@ function validatedate(dateString){
     }      
     return true      
 } 
-function validatetime(timeString){
+function validatetime(timeString, clockType){
     // let timeformat = /^(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)$/;
-    let timeformat = /^((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))$/;
+    let timeformat12 = /^(1[0-2]|0?[1-9]):([0-5][0-9])$/;
+    let timeformat24 = /^(2[0-4]|1[0-9]|0?[1-9]):([0-5][0-9])$/;
+    let arr = [];
 
-    if(!timeString.match(timeformat)){
-        return false;
+    if(timeString.match(timeformat12)){
+        return arr = [`${timeString} ${clockType}`, 'DD-MM-YYYY HH:mm A'];
     }
-    return true
+    else if(timeString.match(timeformat24)) 
+        return arr = [timeString, 'DD-MM-YYYY HH:mm'];
+    else 
+        return false
 }
