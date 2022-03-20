@@ -5,13 +5,14 @@ const momentTimezone = require('moment-timezone')
 module.exports = {
     name: 'schedule-message',
     description: 'Schedules a Message to a future date.',
-    // userPermissions: ["ADMINISTRATOR"],
+    userPermissions: ["MANAGE_MESSAGES"],
     options: [
         {
             name: 'channel',
             description: 'Target Channel',
             required: true,
             type: 'CHANNEL',
+            channelTypes: ['GUILD_TEXT']
         },
         {
             name: 'date',
@@ -117,11 +118,11 @@ module.exports = {
         const epoachTime = targetDate/1000
         
         interaction.followUp({ embeds: [embeds.enterMessage] })
-         
+        
         const filter = (newMessage) => {
             return newMessage.author.id === interaction.user.id;
         }
-    
+        
         interaction.channel.awaitMessages({ 
             filter, max: 1, time: 1000 * 30, errors: ['time'] 
         })
@@ -137,87 +138,87 @@ module.exports = {
             console.log(specialid)
             
             let confirmEmbed = new MessageEmbed()
-                .setTitle('Message Recorded!!')
-                .setDescription(
-                    '** **\n'+
-                    '**__Scheduled Message Details:__**\n'+
-                    `> Scheduled Date - **<t:${epoachTime}:F>**\n`+
-                    `> Guild Id - **\`${interaction.guild.name}\`**\n`+
-                    `> Channel - ${channel}\n`+
-                    `> Special Id - **\`${specialid}\`**\n`
+            .setTitle('Message Recorded!!')
+            .setDescription(
+                '** **\n'+
+                '**__Scheduled Message Details:__**\n'+
+                `> Scheduled Date - **<t:${epoachTime}:F>**\n`+
+                `> Guild Id - **\`${interaction.guild.name}\`**\n`+
+                `> Channel - ${channel}\n`+
+                `> Special Id - **\`${specialid}\`**\n`
                 )
                 .addField(
                     `Recorded Message:`,
                     `\`\`\`${collectedMessage.content}\`\`\``
-                )
-                .setColor("BLACK")
+                    )
+                    .setColor("BLACK")
             let acceptRejectRow = new MessageActionRow().addComponents(
                 new MessageButton()
-                    .setLabel('Confirm')
+                .setLabel('Confirm')
                     .setCustomId('confirm')
                     .setStyle('SUCCESS'),
-                new MessageButton()
+                    new MessageButton()
                     .setLabel('Cancel')
                     .setCustomId('cancel')
                     .setStyle('DANGER'),
-            )
-            let acceptRejectEmbed = await interaction.followUp({ embeds: [confirmEmbed], components: [acceptRejectRow], ephemeral: true })
-            
-            // Confirm Reject Collector
-            const filter = i => {
+                    )
+                    let acceptRejectEmbed = await interaction.followUp({ embeds: [confirmEmbed], components: [acceptRejectRow], ephemeral: true })
+                    
+                    // Confirm Reject Collector
+                    const filter = i => {
                 // i.deferUpdate();
                 return i.user.id === interaction.user.id;
             };
 
             acceptRejectEmbed.awaitMessageComponent({ filter, componentType: 'BUTTON', time: 1000 * 300 })
-	            .then(async (int) => {
-                    int.deferReply({ ephemeral: false })
-                    int.deleteReply()
-                    if(int.customId === 'cancel'){
-                        return interaction.followUp({ embeds: [embeds.opCancelled] })
+            .then(async (int) => {
+                int.deferReply({ ephemeral: false })
+                int.deleteReply()
+                if(int.customId === 'cancel'){
+                    return interaction.editReply({ embeds: [embeds.opCancelled] })
                     }
                     else if(int.customId === 'confirm'){
                         let opConfirmed = new MessageEmbed()
-                            .setTitle('Message Confirmed')
-                            .setDescription(
-                                '** **\n'+
-                                '**__Scheduled Message Details:__**\n'+
-                                `> Scheduled Date - **<t:${epoachTime}:F>**\n`+
-                                `> Guild Id - **\`${interaction.guild.name}\`**\n`+
-                                `> Channel - ${channel}\n`+
-                                `> Special Id - **\`${specialid}\`**\n`
+                        .setTitle('Message Confirmed')
+                        .setDescription(
+                            '** **\n'+
+                            '**__Scheduled Message Details:__**\n'+
+                            `> Scheduled Date - **<t:${epoachTime}:F>**\n`+
+                            `> Guild Id - **\`${interaction.guild.name}\`**\n`+
+                            `> Channel - ${channel}\n`+
+                            `> Special Id - **\`${specialid}\`**\n`
                             )
                             .addField(
                                 `Recorded Message:`,
                                 `\`\`\`${collectedMessage.content}\`\`\``
-                            )
-                            .setColor('GREEN')
-                        interaction.followUp({ embeds: [opConfirmed] })
-
-                        await new scheduledSchema({
-                            date: targetDate,
-                            content: collectedMessage.content,
-                            guildId: interaction.guild.id,
-                            channelId: channel.id,
-                            specialId: specialid
-                        }).save()
-                    }
-                })
-	            .catch(err => console.log(`No interactions were collected.`));
-      
-        })
-        .catch((e) => {
-            return interaction.followUp({ embeds: [embeds.timeoutEmbed] })  
-        })
-    }
-};
-
-// Extra Functions
-
-function validatedate(dateString){      
-    let dateformat = /^(0?[1-9]|[1-2][0-9]|3[01])[\/](0?[1-9]|1[0-2])[\/]\d{4}$/;      
-          
-    // Match the date format through regular expression      
+                                )
+                                .setColor('GREEN')
+                                interaction.editReply({ embeds: [opConfirmed] })
+                                
+                                await new scheduledSchema({
+                                    date: targetDate,
+                                    content: collectedMessage.content,
+                                    guildId: interaction.guild.id,
+                                    channelId: channel.id,
+                                    specialId: specialid
+                                }).save()
+                            }
+                        })
+                        .catch(err => console.log(`No interactions were collected.`));
+                        
+                    })
+                    .catch((e) => {
+                        return interaction.followUp({ embeds: [embeds.timeoutEmbed] })  
+                    })
+                }
+            };
+            
+            // Extra Functions
+            
+            function validatedate(dateString){      
+                let dateformat = /^(0?[1-9]|[1-2][0-9]|3[01])[\/](0?[1-9]|1[0-2])[\/]\d{4}$/;      
+                
+                // Match the date format through regular expression      
     if(dateString.match(dateformat)){      
         let operator = dateString.split('/');      
       
