@@ -12,7 +12,12 @@ app.listen(port, () => console.log(`Example app listening at http://localhost/ma
 const client = new Client({
     intents: 32767,
 });
+
 module.exports = client;
+
+// Discord Modals
+const discordModals = require('discord-modals') // Define the discord-modals package!
+discordModals(client);
 
 // Global Variables
 client.commands = new Collection();
