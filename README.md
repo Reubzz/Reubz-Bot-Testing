@@ -18,16 +18,19 @@
 - **Message Scheduler:**
   - A Message Scheduler Feature, which allows you to Schedule a Certain Message for a Future Date. And the Bot will Auto-matically post it on that time. (Allows to Create / Delete / List any of the schedules anytime)
 
-      <img src="https://i.imgur.com/GegnyjU.png" width="400">
-      <img src="https://i.imgur.com/LQDXLf0.png" width="400" height="348">
+      <img src="https://i.imgur.com/GegnyjU.png" width="300" height="248">
+      <img src="https://i.imgur.com/LQDXLf0.png" width="300" height="248">
+      <img src="https://i.imgur.com/gzOvuT4.png" width="300" height="248">
 
 - **Suggestions System:**
   - A fully reconstructed Suggestion System, Using inbuilt Discord Modals. Now sending suggestions is easier than ever. Single command, Fill up the Form and click Submit. 
+  
+      <img src="https://i.imgur.com/kPonFOY.png" width="300">
+      
   - Ability added for Admins to Accept and Deny any suggestions that are posted in the Suggestion Channel. 
 
-      <img src="https://i.imgur.com/kPonFOY.png" width="400">
-      <img src="https://i.imgur.com/Qare18U.png" width="400">
-      <img src="https://i.imgur.com/nZXvzEy.png" width="400" height="220">
+      <img src="https://i.imgur.com/Qare18U.png?1" width="350" height="190">
+      <img src="https://i.imgur.com/nZXvzEy.png" width="350" height="190">
 
 - **Admin/Moderation:** 
   - Various Server Utility Commands. (Kick, Ban, Slowmode, Serverinfo, Emoji-Info, etc)
