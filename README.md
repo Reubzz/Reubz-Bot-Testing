@@ -14,7 +14,21 @@
   - Discord Together Activities (Chess, Poker, Betrayl.io, and many more interesting games!) 
       <img src="https://i.imgur.com/8g4YkYX.png" width="400" >
       <img src="https://i.imgur.com/Mfo4ip3.png?1" height="200" >
- 
+
+- **Message Scheduler:**
+  - A Message Scheduler Feature, which allows you to Schedule a Certain Message for a Future Date. And the Bot will Auto-matically post it on that time. (Allows to Create / Delete / List any of the schedules anytime)
+
+      <img src="https://i.imgur.com/GegnyjU.png" width="400">
+      <img src="https://i.imgur.com/LQDXLf0.png" width="400" height="348">
+
+- **Suggestions System:**
+  - A fully reconstructed Suggestion System, Using inbuilt Discord Modals. Now sending suggestions is easier than ever. Single command, Fill up the Form and click Submit. 
+  - Ability added for Admins to Accept and Deny any suggestions that are posted in the Suggestion Channel. 
+
+      <img src="https://i.imgur.com/kPonFOY.png" width="400">
+      <img src="https://i.imgur.com/Qare18U.png" width="400">
+      <img src="https://i.imgur.com/nZXvzEy.png" width="400" height="220">
+
 - **Admin/Moderation:** 
   - Various Server Utility Commands. (Kick, Ban, Slowmode, Serverinfo, Emoji-Info, etc)
   - Required Roles Setup for Certain Commands. (Support for all Commands Coming soon)
